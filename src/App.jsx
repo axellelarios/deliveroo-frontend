@@ -12,12 +12,25 @@ function App() {
   const handleSelect = (mealId) => {
     const getSelected = [...selected]
 
+    const cat = data.categories
+
+    let allMeals = []
+    for (let i=0; i < cat.length; i++) {
+      let meals = cat[i].meals
+      if(meals.find(meal => meal.id === mealId)) {
+         allMeals.push(meals.find(meal => meal.id === mealId))
+         break
+      }   
+    }
+
     if (selected.find(meal => meal.id === mealId) === undefined) {
-      let newSelection = { "id": mealId, "counter": 1};
+      let newSelection = { "id": mealId, "counter": 1, "name":  allMeals[0].title, "price":  allMeals[0].price };
       getSelected.push(newSelection)
     } else {
       const currentMeal = selected.find(meal => meal.id === mealId);
+      let price = (parseFloat(currentMeal.price))
       currentMeal.counter = currentMeal.counter + 1
+      currentMeal.price = price + price
     }
     setSelected(getSelected)
   }
@@ -37,7 +50,7 @@ function App() {
 
 
   return isLoading ? (
-    <span>En cours de chargement...</span>
+    <span>En cours de chargement...</span> 
     ) : (
     <>
       <div>
@@ -70,7 +83,7 @@ function App() {
                                 <div className='cat-content'>
                                      {categorie.meals.map((meal, index) => {
                                        return (
-                                        <div onClick={() => {handleSelect(meal.id)}} key={meal.id} className='cat-card'>
+                                        <div  key={meal.id} onClick={() => {handleSelect(meal.id)}} className='cat-card'>
                                             <div> 
                                               <h4>{meal.title}</h4>
                                               {meal.description 
@@ -103,20 +116,19 @@ function App() {
                            <div className='cart-listing'>
                               {selected.map((list, index) => {
                                   return (
-                                    <div className='cart-listing--item'>
+                                    <div key={list.id} className='cart-listing--item'>
                                     <div> 
                                       <div className='counter'>
                                         <button>-</button>
-                                        <span>{list.counter}</span>
+                                        <span className='counter-nb'>{list.counter}</span>
                                         <button>+</button>
-                                        <span>article name</span>
+                                        <span>{list.name}</span> 
                                       </div>
                                     </div>
-                                    <div className='price'>0</div>
+                                    <div className='price'>{list.price}€</div>
                                   </div>
                                   )
                               })}
-
                            </div>
                         </div>
                     </div>

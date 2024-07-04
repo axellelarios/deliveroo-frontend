@@ -206,3 +206,8 @@ button {
   min-height: 0;
   padding: 0;
 }
+
+.counter-nb {
+  min-width: 22px;
+  text-align: center;
+}
