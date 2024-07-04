@@ -1,5 +1,5 @@
 .container {
-  max-width: 1500px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -36,10 +36,29 @@ img {
 header {
   background: white;
   padding: 20px 0;
+  border-bottom: 1px solid #e3e3e3;
 }
 
 main {
   background: #F3F5F5;
+}
+
+button {
+  background: black;
+  box-shadow: none;
+  border: 0;
+  padding: 12px 15px;
+  border-radius: 5px;
+  color: black;
+  min-height: 50px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.submit {
+  background-color: #00CDBD;
+  width: 100%;
+  color: white;
 }
 
 .hero {
@@ -60,8 +79,6 @@ main {
   display: flex;
   flex-direction: row;
   margin: 0 auto;
-  max-width: 1200px;
-  width: 96vw;
 }
 
 .content-wrapper > div:first-child {
@@ -84,7 +101,9 @@ main {
 }
 
 .hero-wrapper p {
-  opacity: 0.8;
+  opacity: 0.5;
+  font-size: 20px;
+  line-height: 1.4em;
 }
 
 .hero-wrapper > div:first-child {
@@ -109,6 +128,12 @@ main {
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
+  border-radius: 7px;
+}
+
+.cat-card:hover {
+  box-shadow: 5px 5px 13px 5px rgb(0 0 0 / 4%);
+  cursor: pointer;
 }
 
 .cat-card > div {
@@ -131,4 +156,49 @@ main {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 15px;
+}
+
+.cart-content {
+  background: white;
+  border-radius: 7px;
+  min-height: 100px;
+  box-shadow: 5px 5px 13px 5px rgb(0 0 0 / 4%);
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.cart-listing--item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.cart-listing--item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.cart-listing--item .counter {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 15px 0 15px;
+}
+
+.cart-listing--item .counter button {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #00CDBD;
+  border-radius: 50px;
+  border: 2px solid #00CDBD;
+  min-height: 0;
+  padding: 0;
 }

@@ -48,13 +48,13 @@ function App() {
                     <div className='content-left'>
 
                         {data.categories.map((categorie, index) => {
-                            return (
-                              <div key={categorie.name} className='cat-wrapper'>
+                            return categorie.meals.length > 1 
+                              ? ( <div key={categorie.name} className='cat-wrapper'>
                                 <h2>{categorie.name}</h2>
                                 <div className='cat-content'>
                                      {categorie.meals.map((meal, index) => {
                                        return (
-                                        <div className='cat-card'>
+                                        <div key={meal.id} className='cat-card'>
                                             <div> 
                                               <h4>{meal.title}</h4>
                                               {meal.description 
@@ -76,11 +76,28 @@ function App() {
                                     })}
                                 </div>
                               </div>
-                            )
-                        })}
+                            ) 
+                            : null
+                          })
+                        }
                     </div>
                     <div className='content-right cart'>
-                        column right
+                        <div className='cart-content'>
+                           <button className='submit'>Valider mon panier</button>
+                           <div className='cart-listing'>
+                              <div className='cart-listing--item'>
+                                  <div> 
+                                    <div className='counter'>
+                                      <button>-</button>
+                                      <span>counter</span>
+                                      <button>+</button>
+                                      <span>article name</span>
+                                    </div>
+                                  </div>
+                                  <div className='price'>0</div>
+                              </div>
+                           </div>
+                        </div>
                     </div>
               </div>
             </div>
