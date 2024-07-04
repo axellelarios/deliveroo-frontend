@@ -1,11 +1,26 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import axios from "axios"
+import logo from "./assets/logo.svg"
 
 function App() {
 
   const [data, setData] = useState();
+  const [selected, setSelected] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleSelect = (mealId) => {
+    const getSelected = [...selected]
+
+    if (selected.find(meal => meal.id === mealId) === undefined) {
+      let newSelection = { "id": mealId, "counter": 1};
+      getSelected.push(newSelection)
+    } else {
+      const currentMeal = selected.find(meal => meal.id === mealId);
+      currentMeal.counter = currentMeal.counter + 1
+    }
+    setSelected(getSelected)
+  }
 
   useEffect(()=> {
     const fetchData = async ()=> {
@@ -20,6 +35,7 @@ function App() {
     fetchData();
   }, [])
 
+
   return isLoading ? (
     <span>En cours de chargement...</span>
     ) : (
@@ -27,7 +43,7 @@ function App() {
       <div>
         <header>
           <div className='container'>
-            logo
+            <img src={logo} alt="Deliveroo - app"/>
           </div>
         </header>
         <main>
@@ -54,7 +70,7 @@ function App() {
                                 <div className='cat-content'>
                                      {categorie.meals.map((meal, index) => {
                                        return (
-                                        <div key={meal.id} className='cat-card'>
+                                        <div onClick={() => {handleSelect(meal.id)}} key={meal.id} className='cat-card'>
                                             <div> 
                                               <h4>{meal.title}</h4>
                                               {meal.description 
@@ -85,17 +101,22 @@ function App() {
                         <div className='cart-content'>
                            <button className='submit'>Valider mon panier</button>
                            <div className='cart-listing'>
-                              <div className='cart-listing--item'>
-                                  <div> 
-                                    <div className='counter'>
-                                      <button>-</button>
-                                      <span>counter</span>
-                                      <button>+</button>
-                                      <span>article name</span>
+                              {selected.map((list, index) => {
+                                  return (
+                                    <div className='cart-listing--item'>
+                                    <div> 
+                                      <div className='counter'>
+                                        <button>-</button>
+                                        <span>{list.counter}</span>
+                                        <button>+</button>
+                                        <span>article name</span>
+                                      </div>
                                     </div>
+                                    <div className='price'>0</div>
                                   </div>
-                                  <div className='price'>0</div>
-                              </div>
+                                  )
+                              })}
+
                            </div>
                         </div>
                     </div>
