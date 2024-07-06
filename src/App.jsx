@@ -11,7 +11,6 @@ function App() {
 
   const handleSelect = (mealId) => {
     const getSelected = [...selected]
-
     const cat = data.categories
 
     let allMeals = []
@@ -24,14 +23,49 @@ function App() {
     }
 
     if (selected.find(meal => meal.id === mealId) === undefined) {
-      let newSelection = { "id": mealId, "counter": 1, "name":  allMeals[0].title, "price":  allMeals[0].price };
+      let newSelection = { 
+        "id": mealId, 
+        "counter": 1, 
+        "name":  allMeals[0].title, 
+        "total": allMeals[0].price, 
+        "price":  allMeals[0].price 
+      };
       getSelected.push(newSelection)
     } else {
       const currentMeal = selected.find(meal => meal.id === mealId);
-      let price = (parseFloat(currentMeal.price))
+      console.log(currentMeal)
+      let priceInit = (parseFloat(currentMeal.price))
+      let totalPrice = (parseFloat(currentMeal.total))
       currentMeal.counter = currentMeal.counter + 1
-      currentMeal.price = price + price
+      currentMeal.total = totalPrice + priceInit
     }
+    setSelected(getSelected)
+  }
+
+  const handleMinus = (id) => {
+    const getSelected = [...selected]
+    const currentMeal = selected.find(meal => meal.id === id);
+
+    if(currentMeal.counter === 1){
+      getSelected.splice(currentMeal, 1)
+    } else {
+    let priceInit = (parseFloat(currentMeal.price))
+    let totalPrice = (parseFloat(currentMeal.total))
+    currentMeal.counter = currentMeal.counter - 1
+    currentMeal.total = totalPrice - priceInit    
+    }
+    setSelected(getSelected)
+  }
+
+  const handlePlus = (id) => {
+    const getSelected = [...selected]
+    
+    const currentMeal = selected.find(meal => meal.id === id);
+    let priceInit = (parseFloat(currentMeal.price))
+    let totalPrice = (parseFloat(currentMeal.total))
+    currentMeal.counter = currentMeal.counter + 1
+    currentMeal.total = totalPrice + priceInit    
+
     setSelected(getSelected)
   }
 
@@ -113,19 +147,19 @@ function App() {
                     <div className='content-right cart'>
                         <div className='cart-content'>
                            <button className='submit'>Valider mon panier</button>
-                           <div className='cart-listing'>
+                           <div className='cart-listing'> 
                               {selected.map((list, index) => {
                                   return (
                                     <div key={list.id} className='cart-listing--item'>
                                     <div> 
                                       <div className='counter'>
-                                        <button>-</button>
+                                        <button onClick={()=>{handleMinus(list.id)}}>-</button>
                                         <span className='counter-nb'>{list.counter}</span>
-                                        <button>+</button>
+                                        <button onClick={()=>{handlePlus(list.id)}}>+</button>
                                         <span>{list.name}</span> 
                                       </div>
                                     </div>
-                                    <div className='price'>{list.price}€</div>
+                                    <div className='price'>{list.total}€</div>
                                   </div>
                                   )
                               })}

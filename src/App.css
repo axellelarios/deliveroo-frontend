@@ -211,3 +211,7 @@ button {
   min-width: 22px;
   text-align: center;
 }
+
+.counter span:last-child {
+  max-width: 130px;
+}
